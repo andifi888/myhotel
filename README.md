@@ -66,3 +66,53 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+composer require --dev barryvdh/laravel-ide-helper
+
+composer require laravel/breeze --dev
+php artisan breeze:install
+ 
+php artisan migrate
+npm install
+npm run dev
+
+composer require spatie/laravel-permission
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+php artisan optimize:clear
+ php artisan migrate
+
+
+
+Hotel artisan command
+php artisan make:model City -mcr
+php artisan make:model Country -mcr
+php artisan make:model Hotel -mcr
+php artisan make:model HotelPhoto -mcr
+php artisan make:model HotelBooking -mcr
+php artisan make:model HotelRoom -mcr
+-----
+php artisan make:request StoreCityRequest
+php artisan make:request StoreSearchHotelRequest
+php artisan make:request StorePaymentBookingRequest
+php artisan make:request StoreCountryRequest
+php artisan make:request StoreHotelRequest
+php artisan make:request StoreRoomRequest
+php artisan make:request StoreHotelBookingRequest
+php artisan make:request UpdateHotelRequest
+php artisan make:request UpdateRoomRequest
+
+php artisan make:factory CityFactory --model=City
+php artisan make:factory CountryFactory --model=Country
+
+
+
+
+
+composer require --dev barryvdh/laravel-ide-helper
+php artisan ide-helper:generate
+php artisan ide-helper:meta
+php artisan ide-helper:models --nowrite
+
+
+refresh dan panggil seed
+php artisan migrate:fresh --seed

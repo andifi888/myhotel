@@ -116,3 +116,7 @@ php artisan ide-helper:models --nowrite
 
 refresh dan panggil seed
 php artisan migrate:fresh --seed
+
+
+mengaktifkan storage file
+php artisan storage:link

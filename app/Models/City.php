@@ -13,7 +13,10 @@ class City extends Model
     protected $fillable = [
         'name',
         'slug',
+        'created_at',
     ];
+
+
 
     public function hotels(){
         return $this->hasMany(Hotel::class);

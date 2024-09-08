@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCityRequest;
 use App\Models\City;
+use DB;
 use Illuminate\Http\Request;
+use illuminate\Support\Str;
 
 class CityController extends Controller
 {
@@ -12,7 +15,9 @@ class CityController extends Controller
      */
     public function index()
     {
-        //
+        $cities = City::orderByDesc('id')->paginate(10);
+        //return view('admin.cities.index',compact($cities));
+        return view('admin.cities.index')->with('cities', $cities);
     }
 
     /**
@@ -20,15 +25,27 @@ class CityController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.cities.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCityRequest $request)
     {
-        //
+        /**
+        * 1 validasi data
+        * 2 mulai insert data ke table database
+        * 3 mengembalikan pengguna kepada halaman index  (list of city)
+        */
+
+        DB::transaction(function() use ($request){
+            $validated = $request->validated();
+            $validated['slug'] = Str::slug($validated['name']);
+            $NewData = City::Create($validated);
+        });
+
+        return redirect()->route('admin.cities.index');
     }
 
     /**

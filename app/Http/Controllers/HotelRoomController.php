@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRoomRequest;
+use App\Models\Hotel;
 use App\Models\HotelRoom;
+use DB;
 use Illuminate\Http\Request;
 
 class HotelRoomController extends Controller
@@ -18,17 +21,31 @@ class HotelRoomController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Hotel $hotel)
     {
-        //
+       return view('admin.hotel_rooms.create', compact('hotel'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRoomRequest $request, Hotel $hotel)
     {
-        //
+        DB::transaction(function() use ($request, $hotel){
+            $validated = $request->validated();
+
+            if($request->hasFile('photo')){
+                $photoPath =
+                $request->file('photo')->store('photo/' . date('Y/m/d') , 'public');
+                $validated['photo'] = $photoPath;
+            }
+            $validated['hotel_id'] = $hotel->id;
+
+            $room = HotelRoom:: create($validated);
+
+        });
+
+        return redirect()->route('admin.hotels.show', $hotel->id);
     }
 
     /**

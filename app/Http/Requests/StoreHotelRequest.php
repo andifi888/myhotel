@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class StoreHotelRequest extends FormRequest
 {
@@ -28,7 +29,7 @@ class StoreHotelRequest extends FormRequest
             'thumbnail'=>['required','image','mimes:png,jpg,jpeg'],
             'city_id'=>['required','integer'],
             'country_id'=>['required','integer'],
-            'start_level'=>['required','integer'],
+            'star_level'=>['required','integer'],
             'photos.*'=>['required','image','mimes:png,jpg,jpeg'],
         ];
     }
